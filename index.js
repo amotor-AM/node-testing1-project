@@ -7,7 +7,12 @@
  * trimProperties({ name: '  jane  ' }) // returns a new object { name: 'jane' }
  */
 function trimProperties(obj) {
-  // ✨ implement
+  const objCopy = obj
+  Object.keys(objCopy).map(key => objCopy[key] = typeof objCopy[key] == "string" 
+    ? objCopy[key].trim() 
+    : objCopy[key])
+
+  return objCopy
 }
 
 /**
@@ -20,6 +25,11 @@ function trimProperties(obj) {
  */
 function trimPropertiesMutation(obj) {
   // ✨ implement
+  Object.keys(obj).map(key => obj[key] = typeof obj[key] == "string" 
+  ? obj[key].trim() 
+  : obj[key])
+
+return obj
 }
 
 /**
@@ -31,7 +41,13 @@ function trimPropertiesMutation(obj) {
  * findLargestInteger([2, 1, 7, 3, 14, 7]) // returns 14
  */
 function findLargestInteger(integers) {
-  // ✨ implement
+  let num = 0
+  for(let i = 0; i < integers.length; i++) {
+    if(integers[i] > num) {
+      num = integers[i]
+    }
+  }
+  return num
 }
 
 class Counter {
@@ -41,6 +57,8 @@ class Counter {
    */
   constructor(initialNumber) {
     // ✨ initialize whatever properties are needed
+    this.initialNumber = initialNumber
+    this.counter = 0 
   }
 
   /**
@@ -57,15 +75,23 @@ class Counter {
    */
   countDown() {
     // ✨ implement
+   let result = this.initialNumber - this.counter
+   this.counter ++
+   if(result < 0) {
+     result = 0
+   }
+   return result
   }
 }
 
 class Seasons {
   /**
    * [Exercise 5A] Seasons creates a seasons object
+   *
    */
   constructor() {
     // ✨ initialize whatever properties are needed
+    this.season = ""
   }
 
   /**
@@ -80,8 +106,23 @@ class Seasons {
    * seasons.next() // returns "spring"
    * seasons.next() // returns "summer"
    */
+
+  // This is a PERFECT Example of why TDD is inefficeint. At least as it is taught. If our goal is 
+  // to make a failing test and then get it to pass then we will create inefficencies that can otherwise
+  // be solved for. In this case it's easier to make an if, else if statement but that is ineficient.
+  // im not gonna change it though because TDD :)
   next() {
     // ✨ implement
+    if(this.season === "" || "Spring") {
+      this.season = "Summer"
+    } else if(this.season === "Summer") {
+      this.season = "Fall"
+    } else if(this.season === "Fall") {
+      this.season = "Winter"
+    } else if(this.season === "Winter") {
+      this.season = "Spring"
+    } 
+    return this.season
   }
 }
 
@@ -96,6 +137,8 @@ class Car {
     this.odometer = 0 // car initilizes with zero miles
     this.tank = tankSize // car initiazes full of gas
     // ✨ initialize whatever other properties are needed
+    this.mpg = mpg
+
   }
 
   /**
